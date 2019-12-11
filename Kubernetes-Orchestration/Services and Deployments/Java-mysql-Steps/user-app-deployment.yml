@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-app-pod
+  template:
+    metadata:
+      labels:
+        app: user-app-pod
+    spec:       
+      containers:
+      - name: user-app-container
+        image: pbadhe34/my-apps:user-app
+        ports:
+        - containerPort: 8090
+        ##Here It  uses the DNS service provided by cluster to find trhe mysql service host
+        env:
+          - name: mysql #Name of mysql service host: NOT used here
+            value: mysql-host   ##Not used in java service app    

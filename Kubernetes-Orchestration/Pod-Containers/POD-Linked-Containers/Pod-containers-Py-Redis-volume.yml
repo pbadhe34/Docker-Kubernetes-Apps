@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volume-container
+spec:
+  hostNetwork: true
+  volumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+        claimName: redis-pv-claim
+  containers:
+    - name: host-port-pods-app
+      image: pbadhe34/my-apps:app2
+      ports:
+        - containerPort: 8090          
+    - name: redis
+      image: redis
+      ports:
+        - containerPort: 6379
+          name: redis
+      volumeMounts:
+          - name: persistent-storage
+            mountPath: /data         

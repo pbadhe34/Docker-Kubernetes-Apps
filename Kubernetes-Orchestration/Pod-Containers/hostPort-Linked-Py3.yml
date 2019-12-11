@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: host-port-pods
+spec:
+  containers:
+    - name: host-port-pods-app
+      image: pbadhe34/my-apps:app1
+      ports:
+        - containerPort: 8090
+          hostPort: 9092
+    - name: redis
+      image: redis
+      ports:
+        - containerPort: 6379
+          hostPort: 6379        

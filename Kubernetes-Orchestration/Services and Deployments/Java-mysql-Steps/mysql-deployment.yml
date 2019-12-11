@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment-app
+spec:  
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mysql-pod
+  template:
+    metadata:
+      labels:
+        app: mysql-pod
+    spec:
+      volumes:
+       - name: persistent-storage
+         persistentVolumeClaim:
+          claimName: app-pv-claim
+      containers:
+      - name: mysql-container
+        image: mysql:5.6
+        env:
+         - name: MYSQL_ROOT_PASSWORD
+           value: "MyRootPass123" 
+         - name: MYSQL_DATABASE
+           value: userservice
+        ports:
+        - containerPort: 3306
+          name: mysql-port
+        volumeMounts:
+          - name: persistent-storage
+            mountPath: /var/lib/mysql

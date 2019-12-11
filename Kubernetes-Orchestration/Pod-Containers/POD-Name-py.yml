@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  generateName: pod-base
+spec:
+  containers:
+    - name: pod-app
+      image: pbadhe34/my-apps:app1
+      ports:
+        - containerPort: 8090           
+     

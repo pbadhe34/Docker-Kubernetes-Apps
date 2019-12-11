@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    image: magnuslarsson/quotes:go-22
+    ports:
+       - "8080" 
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure 
+
+ 
+
+  
